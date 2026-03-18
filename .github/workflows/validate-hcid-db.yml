@@ -1,0 +1,14 @@
+name: Validate HCID Database
+
+on: [push, pull_request]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Test with validator script
+              run: |
+                  python3 -m venv venv
+                  source venv/bin/activate
+                  pip install jsonschema biopython
+                  python3 scripts/validate_hcid.py --schema schema.json --json hcid.json --fasta hcid_refs.fa.gz
